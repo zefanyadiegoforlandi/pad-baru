@@ -24,6 +24,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -58,4 +59,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function lahan()
+    {
+        return $this->hasMany(Lahan::class,'id_user');
+    }
 }

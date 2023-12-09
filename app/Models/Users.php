@@ -7,20 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
-class Buku extends Model
+class Users extends Model
 {
     use HasFactory;
     protected $table = "users";
     protected $fillable = [
         'id',
-        'judul',
-        'penulis',
-        'harga',
-        'tgl_terbit',
-        'created_at', 
-        'updated_at', 
-        'filename', 
-        'filepath'
+        'name',
+        'email',
         ];
-        
 }

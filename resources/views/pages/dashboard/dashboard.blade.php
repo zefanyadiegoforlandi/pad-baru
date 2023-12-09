@@ -6,10 +6,10 @@
         <x-dashboard.welcome-banner />
         </div>
 
-        <x-information />
+        <x-dashboard.information />
 
         <!-- Dashboard actions -->
         
-        <x-table-daftar-dashboard />
+        <x-dashboard.table_daftar_dashboard />
     </div>
 </x-app-layout>

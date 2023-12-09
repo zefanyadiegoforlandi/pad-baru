@@ -2,24 +2,6 @@
     
 
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-        <div class="flex mx-3">
-            
-            <!-- Hamburger button -->
-            <button
-                class="text-slate-500 hover:text-slate-600 lg:hidden"
-                @click.stop="sidebarOpen = !sidebarOpen"
-                aria-controls="sidebar"
-                :aria-expanded="sidebarOpen"
-            >
-                <span class="sr-only">Open sidebar</span>
-                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4" y="5" width="16" height="2" />
-                    <rect x="4" y="11" width="16" height="2" />
-                    <rect x="4" y="17" width="16" height="2" />
-                </svg>
-            </button>
-
-        </div>            
 
         <div class="FLEX flex-col mt-5 ml-4 mr-4">
             <div class="text-container-daftar flex flex-col sm:flex-row justify-between items-start">
@@ -88,73 +70,4 @@
         </div>
         
     </div>
-
-<!-- Modal container -->
-    <div id="modal" class="fixed hidden inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-       <!-- Modal content -->
-       <div class="bg-white mx-4 md:mx-auto w-full max-w-lg rounded p-8">
-         <!-- Modal header -->
-           <div class="flex justify-between items-center mb-4">
-               <h2 class="text-xl md:text-2xl font-bold">Modal Header</h2>
-               <button id="closeModal" class="text-gray-700 hover:text-gray-900">
-               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                   <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-               </svg>
-               </button>
-           </div>
-               <!-- Modal body -->
-
-               <form action="{{ route('sensor-store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="mb-4">
-                    <label for="id_lahan" class="block text-gray-700 font-bold">ID LAHAN</label>
-                    <input type="text" name="id_lahan" id="id_lahan" class="border border-gray-300 rounded px-3 py-2 w-full">
-                </div>
-                <div class="mb-4">
-                    <label for="tanggal_aktivasi" class="block text-gray-700 font-bold">TANGGAL AKTIVASI</label>
-                    <input type="text" name="tanggal_aktivasi" id="tanggal_aktivasi" class="border border-gray-300 rounded px-3 py-2 w-full">
-                </div>
-                            
-                <div class="flex justify-end mt-4">
-                    <button class="btn bg-red-500 text-white mr-4" onclick="closeModal()" type="button">Cancel</button>
-                    <button type="submit" class="btn bg-green-500 text-white" onclick="closeModal()">OK</button>
-                </div>
-            </form>
-            
-        </div>
-   
-        <script>
-            // JavaScript to handle modal interactions
-            const openModalButton = document.getElementById('openModal');
-            const closeModalButton = document.getElementById('closeModal');
-            const modal = document.getElementById('modal');
-        
-            openModalButton.addEventListener('click', () => {
-                modal.classList.remove('hidden');
-            });
-        
-            closeModalButton.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
-        
-            function closeModal() {
-                modal.classList.add('hidden');
-            }
-        </script>
-
-        <!-- Tambahkan skrip Flatpickr -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-        <script>
-            // Inisialisasi Flatpickr pada elemen dengan ID 'tanggal_aktivasi'
-            flatpickr("#tanggal_aktivasi", {
-                enableTime: true, // Aktifkan pilihan waktu
-                dateFormat: "Y-m-d H:i:s", // Format tanggal dan waktu
-                defaultDate: new Date(), // Gunakan waktu saat ini sebagai nilai awal
-
-            });
-        </script>
-        
-    </div>
 </x-app-layout>
-

@@ -14,8 +14,7 @@
         :class="sidebarOpen ? 'translate-x-0' : '-translate-x-64'"
         @click.outside="sidebarOpen = false"
         @keydown.escape.window="sidebarOpen = false"
-        x-cloak="lg"
-    >
+        x-cloak="lg">
 
         <!-- Sidebar header -->
         <div class="flex justify-between mb-10 pr-3 sm:px-2">
@@ -93,6 +92,43 @@
 
             </div>
         </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+            <div id="animatedRectangle" style="width: 206px; height: 86px; background-color: #ffffff; display: none; margin-bottom: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
+              <div class="mt-3">
+                <div class=" info flex item-center mx-4">
+                  <img src="{{ asset('images/user_button_icon.svg') }}" alt="User Image" style="width: 21px; height: 21px; object-fit: cover;" class="mx-2">
+                  <div class="mx-2" style="font-size: 16px;">Theresa Webb</div>
+                </div>
+                <div class="logout flex  item center mx-4 mt-4">
+                    <img src="{{ asset('images/logout_icon.svg') }}" alt="User Image" style="width: 21px; height: 21px; object-fit: cover;" class="mx-2">
+                    <div class="mx-2" style="font-size: 16px;">Log Out</div>
+                </div>
+              </div>
+            </div>
+        
+            <button id="showRectangle" style="width: 247px; height: 84px; border-radius: 24px; padding: 8px; margin-bottom: 10px;" class="bg-green-500 border-none rounded-2xl p-8 flex flex-col justify-center items-start text-white font-sans text-left">
+              <div class="flex items-center mt-2 ml-4">
+                <div class="img w-14 h-14 overflow-hidden rounded-full mb-4 align-top">
+                  <img src="{{ asset('images/user_besar_icon.svg') }}" alt="User Image" style="width: 100%; height: 100%; object-fit:cover;">
+                </div>
+                <div class="text ml-4 mb-5">
+                  <div class="text-xl mb-2">Theresa Webb</div>
+                  <div class="text-sm">Admin</div>
+                </div>
+              </div> 
+            </button>
+          </div>
+        
+          <script>
+            // JavaScript to show the rectangle on button click
+            document.getElementById('showRectangle').addEventListener('click', function() {
+              var container = document.getElementById('animatedRectangle');
+        
+              // Toggle class to initiate animation
+              container.style.display = (container.style.display === 'none') ? 'block' : 'none';
+            });
+          </script>
 
     </div>
 </div>

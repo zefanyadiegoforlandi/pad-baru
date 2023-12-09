@@ -1,27 +1,67 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('LIST BUKU') }}
+        </h2>
+    </x-slot>
+    
+    <h1 class="text-3xl font-semibold text-center mb-6 bg-gray-200 py-2">DAFTAR BUKU</h1>
+    <div class="mt-4 mb-4 p-4 bg-white shadow-md flex items-center justify-between">
+        <form action="{{ route('buku.search') }}" method="GET" class="flex items-center">
+            @csrf
+            <input type="text" name="kata" class="border rounded-l py-2 px-3 w-full" placeholder="Cari judul atau penulis...">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white rounded-r px-4 py-2">Cari</button>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Foto</th>
+                    <th>Judul Buku</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if(Session::has('pesan'))
+                <div class="alert alert-success">{{ Session::get('pesan') }}</div>
+                @endif
+                @foreach($data_buku as $b)
+                <tr>
+                    <td>
+                    @if($b->filepath)
+                        <div class="relative h-24 w-24">
+                            <img
+                                class="h-full w-full object-cover object-center"
+                                src="{{ asset($b->filepath) }}"
+                                alt=""
+                                style="padding-right: 20px;"
+                            />
+                        </div>
+                    @endif
+                    </td>
+                    <td>{{ $b->judul }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+</x-app-layout>
+
+<x-app-layout>
     
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div class="flex mx-3">
             
             <!-- Hamburger button -->
-            <button
-                class="text-slate-500 hover:text-slate-600 lg:hidden"
-                @click.stop="sidebarOpen = !sidebarOpen"
-                aria-controls="sidebar"
-                :aria-expanded="sidebarOpen"
-            >
-                <span class="sr-only">Open sidebar</span>
-                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4" y="5" width="16" height="2" />
-                    <rect x="4" y="11" width="16" height="2" />
-                    <rect x="4" y="17" width="16" height="2" />
-                </svg>
-            </button>
-
-        </div>            
-            <!-- Hamburger button -->
         
-      
+
+        </div>
                 
         <div class="FLEX flex-col mt-5 ml-4 mr-4">
             <div class="text-container-daftar flex flex-col sm:flex-row justify-between items-start">
@@ -41,24 +81,20 @@
                         </svg>
                         <span class="hidden xs:block ml-2">Tambah</span>
                     </button>
-                    
+        
                     <div class="search-frame flex items-center">
-                        <form action="{{ route('search-lahan') }}" method="GET" class="relative flex items-center">
-                            @csrf
-                            <input type="text" name="search" 
+                        <form action="" class="relative flex items-center">
+                            <input type="search" 
                                 class="cursor-pointer relative z-10 h-37 w-227 rounded-md bg-transparent pl-3 outline-none focus:w-full focus:cursor-text focus:pl-4 focus:pr-4 shadow-md" 
-                                style="width: 227px; height: 37px; border: none; filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));"
-                                placeholder="Search">
-                            <button type="submit">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                    class="absolute inset-y-0 my-auto h-7 w-37 px-2.5 z-10 focus:outline-none focus:border-lime-300 focus:stroke-lime-500 right-0" 
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </button>
+                                style="width: 227px; height: 37px; border: none; filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));">
+                            <svg xmlns="http://www.w3.org/2000/svg" 
+                                class="absolute inset-y-0 my-auto h-7 w-37 px-2.5 z-10 focus:outline-none focus:border-lime-300 focus:stroke-lime-500 right-0" 
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
                         </form>
                     </div>
-                    
+        
                 </div>
             </div>
         
@@ -76,11 +112,7 @@
                     <tbody style="height: 53px;">
                         @foreach ($lahan as $l )
                         <tr>
-                            <td class="py-2 px-4 border-b text-center">
-                                <form action="{{ route('form-lahan.edit', $l->id_lahan) }}">
-                                    <button class="btn btn-primary" onclick="return confirm('Yakin mau diedit?')">{{ $l->id_lahan}}</button>
-                                </form>
-                            </td>
+                            <td class="py-2 px-4 border-b text-center">{{ $l->id_lahan}}</td>
                             <td class="py-2 px-4 border-b text-center">{{ $l->id_user}}</td>
                             <td class="py-2 px-4 border-b text-center">{{ $l->alamat_lahan }}</td>
                             <td class="py-2 px-4 border-b text-center">{{ $l->luas_lahan }}</td>
@@ -110,33 +142,27 @@
            </div>
                <!-- Modal body -->
 
-               <form action="{{ route('lahan-store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="mb-4">
-                    <label for="id_lahan" class="block text-gray-700 font-bold">ID LAHAN</label>
-                    <input type="text" name="id_lahan" id="id_lahan" class="border border-gray-300 rounded px-3 py-2 w-full">
-                </div>
-                <div class="mb-4">
-                    <label for="id_user" class="block text-gray-700 font-bold">ID FARMER</label>
-                    <input type="text" name="id_user" id="id_user" class="border border-gray-300 rounded px-3 py-2 w-full">
-                </div>
-                <div class="mb-4">
-                    <label for="alamat_lahan" class="block text-gray-700 font-bold">Alamat Lahan</label>
-                    <input type="text" name="alamat_lahan" id="alamat_lahan"  class="border border-gray-300 rounded px-3 py-2 w-full">
-                </div>
-                <div class="mb-4">
-                    <label for="luas_lahan" class="block text-gray-700 font-bold">Luas Lahan</label>
-                    <input type="number" name="luas_lahan" id="luas_lahan"  class="border border-gray-300 rounded px-3 py-2 w-full">
-                </div>
-            
-                <div class="flex justify-end mt-4">
-                    <button class="btn bg-red-500 text-white mr-4" onclick="closeModal()" type="button">Cancel</button>
-                    <button type="submit" class="btn bg-green-500 text-white" onclick="closeModal()">OK</button>
-                </div>
-            </form>
-            
-            
-            
+               <form enctype="multipart/form-data">
+                   @csrf
+                    <div class="mb-4">
+                        <label for="id" class="block text-gray-700 font-bold">ID FARMER</label>
+                        <input type="text" name="id" id="id" class="border border-gray-300 rounded px-3 py-2 w-full">
+                    </div>
+                    <div class="mb-4">
+                        <label for="judul" class="block text-gray-700 font-bold">Luas Lahan</label>
+                        <input type="text" name="judul" id="judul" class="border border-gray-300 rounded px-3 py-2 w-full">
+                    </div>
+                    <div class="mb-4">
+                        <label for="judul" class="block text-gray-700 font-bold">Alamat Lahan</label>
+                        <input type="text" name="judul" id="judul" class="border border-gray-300 rounded px-3 py-2 w-full">
+                    </div>
+                    
+                    <div class="flex justify-end mt-4">
+                        <button class="btn bg-red-500 text-white mr-4" onclick="closeModal()">Cancel</button>
+                        <button class="btn bg-green-500 text-white" onclick="closeModal()">OK</button>
+                    </div>    
+
+                </form>
             </div>
                 <!-- Modal footer -->
                 
@@ -162,19 +188,7 @@
                 modal.classList.add('hidden');
             }
         </script>
-
-        @if(session('errors'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: "{{ $errors->first() }}", // Mengambil pesan kesalahan pertama dari laravel
-                });
-            });
-        </script>
-        @endif
         
     </div>
 </x-app-layout>
+

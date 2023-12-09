@@ -13,7 +13,10 @@ class Sensor extends Model
     protected $table = "sensor";
     protected $fillable = [
         'id_sensor',
-        'lahan_id',
+        'id_lahan',
         'tanggal_aktivasi',
         ];
+    public function lahan() {
+        return $this->belongsTo(Lahan::class, 'id_lahan');
+    }    
 }
